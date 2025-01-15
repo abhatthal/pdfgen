@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Installs wkhtmltopdf RPM in userspace without root
+
+cd $(dirname "$0")
+cd ..
+mkdir rpm
+
+# Download wkhtmltox RPM for Rocky Linux 8 (Expanse)
+wget https://rpms.remirepo.net/enterprise/8/remi/x86_64/wkhtmltopdf-opt-0.12.4-3.el8.remi.x86_64.rpm -P rpm
+
+# Resolve dependencies
+dnf repoquery --requires --resolve rpm/wkhtmltopdf-opt-0.12.4-3.el8.remi.x86_64.rpm | xargs yumdownloader --downloadonly --destdir=rpm
+
+## Manually install dependencies that aren't resolved
+# https://github.com/amra/DocumentationAsCode/issues/2
+wget https://dl.rockylinux.org/pub/rocky/8/AppStream/x86_64/os/Packages/c/compat-openssl10-1.0.2o-4.el8_6.x86_64.rpm -P rpm
+
+# Extract RPMs
+cd pdfgen
+for f in $(ls ../rpm); do
+  echo Extracting $f
+  rpm2cpio ../rpm/$f | cpio -idv
+done
+
+# Build symlinks for manual deps
+# https://stackoverflow.com/a/55995505
+ln -s $PWD/usr/lib64/libcrypto.so.10 ./usr/lib64/libcrypto.so
+ln -s $PWD/usr/lib64/libssl.so.10 ./usr/lib64/libssl.so
+

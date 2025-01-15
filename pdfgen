@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Generate a PDF from HTML with embedded resources.
+# Author: Akash Bhatthal <bhatthal@usc.edu>
+
+# Use - ./pdfgen /absolute/path/to/directory/containing/html/
+
+cd $(dirname "$0")
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/lib:$PWD/lib64:$PWD/usr/lib:$PWD/usr/lib64:$PWD/opt/wkhtmltopdf/lib64 opt/wkhtmltopdf/bin/wkhtmltopdf \
+	--allow $1 --user-style-sheet fix-overlap.css $1/index.html $1/index.pdf
+
+# References
+# * https://www.api2pdf.com/solution-for-overlapping-content-when-generating-pdfs-with-table-headers-and-footers/
+# * https://wkhtmltopdf.org/
+
