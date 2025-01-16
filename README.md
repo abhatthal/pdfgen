@@ -16,7 +16,7 @@ Quakeworx is a science gateway for seismic simulations. Certain Quakeworx
 applications (i.e. UCERF3-ETAS) return plot results as an HTML file with links
 to plot charts, CSV files, and external CSS for styling. This cannot be
 rendered inside the gateway. PDF Generator is used to produce a single document
-with all resources embedded inside it for easy disstribution and viewing
+with all resources embedded inside it for easy distribution and viewing
 online.
 
 See details about how PdfGen is used on SCECpedia at
