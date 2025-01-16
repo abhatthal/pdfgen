@@ -3,7 +3,7 @@
 # Generate a PDF from HTML with embedded resources.
 # Author: Akash Bhatthal <bhatthal@usc.edu>
 
-# Use - ./pdfgen /absolute/path/to/directory/containing/html/
+# Use - ./pdfgen /absolute/path/to/directory/containing/html
 
 cd $(dirname "$0")
 
